@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CronosAgency", "CronosAgency\CronosAgency.csproj", "{2B81ED39-D440-4BA8-9C7C-E47395FDF36F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B81ED39-D440-4BA8-9C7C-E47395FDF36F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B81ED39-D440-4BA8-9C7C-E47395FDF36F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B81ED39-D440-4BA8-9C7C-E47395FDF36F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B81ED39-D440-4BA8-9C7C-E47395FDF36F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {874D9C8C-C862-4E93-B30A-65BB0622929F}
+	EndGlobalSection
+EndGlobal
