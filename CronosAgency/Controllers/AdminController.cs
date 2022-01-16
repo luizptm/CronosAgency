@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CronosAgency.Controllers.Admin
+namespace CronosAgency.Controllers
 {
     [ApiVersion("1.0")]
     [Route("v{v:apiVersion}/admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [ApiController]
-    public class AdministratorController : Controller
+    public class AdminController : Controller
     {
         // GET: AdminController
         public ActionResult Index()

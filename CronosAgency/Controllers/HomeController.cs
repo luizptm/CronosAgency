@@ -1,4 +1,5 @@
 ﻿using CronosAgency.Data;
+using CronosAgency.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace CronosAgency.Controllers
 {
     [ApiVersion("1.0")]
     [Route("v{v:apiVersion}/home")]
-    [Authorize]
+    [AllowAnonymous]
     [ApiController]
     public class HomeController : Controller
     {
@@ -22,9 +23,13 @@ namespace CronosAgency.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var vm = new HomeViewModel();
+            vm.Services = await _context.Services.ToListAsync();
+            vm.Members = await _context.Members.ToListAsync();
+            vm.Posts = await _context.Posts.ToListAsync();
+            return View(vm);
         }
 
         [HttpGet]

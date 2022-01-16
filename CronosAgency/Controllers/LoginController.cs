@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace CronosAgency.Controllers.Admin
+namespace CronosAgency.Controllers
 {
     [ApiVersion("1.0")]
     [Route("products")]
@@ -45,7 +45,6 @@ namespace CronosAgency.Controllers.Admin
             }
 
             var user = await _context.Users.FindAsync(model.Email, model.Password);
-
             if (user != null)
             {
                 return Redirect(GetRedirectUrl(model.ReturnUrl));
@@ -56,7 +55,7 @@ namespace CronosAgency.Controllers.Admin
             return View();
         }
 
-        public ActionResult LogOut()
+        public async Task<ActionResult> LogOut()
         {
             return RedirectToAction("index", "home");
         }

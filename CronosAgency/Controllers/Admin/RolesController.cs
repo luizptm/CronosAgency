@@ -10,7 +10,7 @@ namespace CronosAgency.Controllers.Admin
 {
     [ApiVersion("1.0")]
     [Route("v{v:apiVersion}/roles")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     public class RolesController : Controller
     {
@@ -31,8 +31,8 @@ namespace CronosAgency.Controllers.Admin
             return View();
         }
 
-        // GET: Roles/Details/5
-        public async Task<IActionResult> Details(int id)
+        // GET: Roles/5
+        public async Task<IActionResult> Index(int id)
         {
             var role = await roleManager.FindByIdAsync(id.ToString());
             if (role == null)
@@ -148,7 +148,7 @@ namespace CronosAgency.Controllers.Admin
         // GET: Roles/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            return await Details(id);
+            return await Index(id);
         }
 
         // POST: Roles/Delete/5

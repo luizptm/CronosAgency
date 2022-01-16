@@ -10,7 +10,7 @@ namespace CronosAgency.Controllers.Admin
 {
     [ApiVersion("1.0")]
     [Route("v{v:apiVersion}/services")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     public class ServicesController : Controller
     {
@@ -27,8 +27,8 @@ namespace CronosAgency.Controllers.Admin
             return View(await _context.Services.ToListAsync());
         }
 
-        // GET: Services/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Services/5
+        public async Task<IActionResult> Index(int? id)
         {
             if (id == null)
             {
