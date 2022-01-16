@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers
 {
-    [ApiVersion("1.0")]
-    [Route("v{v:apiVersion}/home")]
     [AllowAnonymous]
-    [ApiController]
     public class HomeController : Controller
     {
         private readonly CronosAgencyContext _context;
@@ -19,7 +16,6 @@ namespace CronosAgency.Controllers
         {
             _context = context;
             _context.Database.EnsureCreated();
-            _context.Database.Migrate();
         }
 
         [HttpGet]

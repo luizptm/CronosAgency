@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers
 {
-    [ApiVersion("1.0")]
-    [Route("v{v:apiVersion}/account")]
     [AllowAnonymous]
-    [ApiController]
     public class AccountController : Controller
     {
         private readonly CronosAgencyContext _context;

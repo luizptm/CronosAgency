@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers
 {
-    [ApiVersion("1.0")]
-    [Route("products")]
     [AllowAnonymous]
-    [ApiController]
     public class LoginController : Controller
     {
         private readonly CronosAgencyContext _context;
