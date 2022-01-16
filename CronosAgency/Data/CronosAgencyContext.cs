@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CronosAgency.Models;
+﻿using CronosAgency.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CronosAgency.Data
 {
@@ -16,7 +16,7 @@ namespace CronosAgency.Data
             modelBuilder.Entity<Post>().HasKey(a => a.Id);
             modelBuilder.Entity<Service>().HasKey(a => a.Id);
             modelBuilder.Entity<User>().HasKey(a => a.Id);
-
+            modelBuilder.Entity<Role>().HasKey(a => a.Id);
 
             modelBuilder.Seed();
         }
@@ -28,5 +28,7 @@ namespace CronosAgency.Data
         public DbSet<Service> Services { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
     }
 }

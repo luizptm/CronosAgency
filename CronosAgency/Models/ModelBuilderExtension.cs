@@ -23,7 +23,14 @@ namespace CronosAgency.Models
 				);
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Name = "Admin", Email = "admim@example.com", Password = "" });
+                new User { Id = 1, Name = "Admin", Email = "admim@cronosagency.com", Password = "admin" },
+                new User { Id = 2, Name = "User", Email = "user@cronosagency.com", Password = "user" }
+                );
+
+            modelBuilder.Entity<Role>().HasData(
+                new Role { Id = 1, Name = "Administrador", NormalizedName = "Administrador" },
+                new Role { Id = 2, Name = "User", NormalizedName = "User" }
+                );
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace CronosAgency.Controllers.Admin
 {
     [ApiVersion("1.0")]
+    [Route("v{v:apiVersion}/roles")]
     [Authorize]
     [ApiController]
     public class RolesController : Controller
@@ -31,9 +32,9 @@ namespace CronosAgency.Controllers.Admin
         }
 
         // GET: Roles/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int id)
         {
-            var role = await roleManager.FindByIdAsync(id);
+            var role = await roleManager.FindByIdAsync(id.ToString());
             if (role == null)
             {
                 ViewBag.ErrorMessage = $"Role com Id = {id} não foi localizada";
@@ -49,7 +50,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 if (await userManager.IsInRoleAsync(user, role.Name))
                 {
-                    model.Users.Add(user.UserName);
+                    model.Users.Add(user.Email);
                 }
             }
             return View(model);
@@ -89,10 +90,10 @@ namespace CronosAgency.Controllers.Admin
         }
 
         // GET: Roles/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
             // Localiza a role pelo ID
-            var role = await roleManager.FindByIdAsync(id);
+            var role = await roleManager.FindByIdAsync(id.ToString());
             if (role == null)
             {
                 ViewBag.ErrorMessage = $"Role com Id = {id} não foi localizada";
@@ -109,7 +110,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 if (await userManager.IsInRoleAsync(user, role.Name))
                 {
-                    model.Users.Add(user.UserName);
+                    model.Users.Add(user.Email);
                 }
             }
             return View(model);
@@ -122,7 +123,7 @@ namespace CronosAgency.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([FromRoute] int id, [FromBody] Role model)
         {
-            var role = await roleManager.FindByIdAsync(model.Id);
+            var role = await roleManager.FindByIdAsync(model.Id.ToString());
             if (role == null)
             {
                 ViewBag.ErrorMessage = $"Role com Id = {model.Id} não foi encontrada";
@@ -145,17 +146,17 @@ namespace CronosAgency.Controllers.Admin
         }
 
         // GET: Roles/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int id)
         {
             return await Details(id);
         }
 
-        // POST: Roles/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // DELETE: Roles/Delete/5
+        [HttpDelete]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = await roleManager.FindByIdAsync(id);
+            var role = await roleManager.FindByIdAsync(id.ToString());
             if (role == null)
             {
                 ViewBag.ErrorMessage = $"Role com Id = {id} não foi encontrada";

@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CronosAgency.Models
 {
-    public class Role : IdentityRole
+    public class Role
     {
-        public virtual List<string> Users { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string NormalizedName { get; set; }
+        [NotMapped]
+        [JsonIgnore]
+        public List<string> Users { get; set; }
     }
 }
