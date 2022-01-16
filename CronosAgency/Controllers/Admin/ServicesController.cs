@@ -1,12 +1,16 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using CronosAgency.Data;
+using CronosAgency.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CronosAgency.Data;
-using CronosAgency.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers.Admin
 {
+    [ApiVersion("1.0")]
+    [Authorize]
+    [ApiController]
     public class ServicesController : Controller
     {
         private readonly CronosAgencyContext _context;
@@ -51,7 +55,7 @@ namespace CronosAgency.Controllers.Admin
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Service service)
+        public async Task<IActionResult> Create([FromBody] Service service)
         {
             if (ModelState.IsValid)
             {
@@ -78,12 +82,12 @@ namespace CronosAgency.Controllers.Admin
             return View(service);
         }
 
-        // POST: Services/Edit/5
+        // PUT: Services/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Service service)
+        public async Task<IActionResult> Edit([FromRoute] int id, [FromBody] Service service)
         {
             if (id != service.Id)
             {

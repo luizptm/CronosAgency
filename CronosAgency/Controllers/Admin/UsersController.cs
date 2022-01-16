@@ -1,5 +1,6 @@
 ﻿using CronosAgency.Data;
 using CronosAgency.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -7,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers.Admin
 {
+    [ApiVersion("1.0")]
+    [Authorize]
+    [ApiController]
     public class UsersController : Controller
     {
         private readonly CronosAgencyContext _context;
@@ -51,7 +55,7 @@ namespace CronosAgency.Controllers.Admin
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,Password,CreateDate,LastTimePasswordChanged")] User user)
+        public async Task<IActionResult> Create([FromBody] User user)
         {
             if (ModelState.IsValid)
             {
@@ -78,12 +82,12 @@ namespace CronosAgency.Controllers.Admin
             return View(user);
         }
 
-        // POST: Users/Edit/5
+        // PUT: Users/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,Password,CreateDate,LastTimePasswordChanged")] User user)
+        public async Task<IActionResult> Edit([FromRoute] int id, [FromBody] User user)
         {
             if (id != user.Id)
             {
