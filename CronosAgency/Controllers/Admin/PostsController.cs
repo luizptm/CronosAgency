@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace CronosAgency.Controllers.Admin
 {
     [ApiVersion("1.0")]
+    [Route("v{v:apiVersion}/posts")]
     [Authorize]
     [ApiController]
     public class PostsController : Controller

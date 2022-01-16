@@ -1,10 +1,15 @@
 ﻿using CronosAgency.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers
 {
+    [ApiVersion("1.0")]
+    [Route("v{v:apiVersion}/home")]
+    [Authorize]
+    [ApiController]
     public class HomeController : Controller
     {
         private readonly CronosAgencyContext _context;
