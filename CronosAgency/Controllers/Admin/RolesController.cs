@@ -151,8 +151,8 @@ namespace CronosAgency.Controllers.Admin
             return await Details(id);
         }
 
-        // DELETE: Roles/Delete/5
-        [HttpDelete]
+        // POST: Roles/Delete/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
