@@ -1,10 +1,8 @@
 ﻿using CronosAgency.Data;
 using CronosAgency.Models;
 using CronosAgency.ViewModel;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers.Admin

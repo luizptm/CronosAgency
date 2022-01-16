@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using CronosAgency.Data;
+using CronosAgency.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CronosAgency.Data;
-using CronosAgency.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers.Admin
 {

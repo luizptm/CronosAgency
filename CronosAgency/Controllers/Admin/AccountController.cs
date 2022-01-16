@@ -1,25 +1,25 @@
-﻿using CronosAgency.Models;
+﻿using CronosAgency.Data;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers.Admin
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly CronosAgencyContext _context;
 
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(CronosAgencyContext context)
         {
-            this.userManager = userManager;
+            _context = context;
         }
 
         [AcceptVerbs("Get", "Post")]
         [AllowAnonymous]
         public async Task<IActionResult> IsEmailInUse(string email)
         {
-            var user = await userManager.FindByEmailAsync(email);
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.Email == email);
             if (user == null)
             {
                 return Json(true);
