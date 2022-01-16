@@ -1,37 +1,63 @@
-﻿using CronosAgency.Models;
+﻿using CronosAgency.Data;
+using CronosAgency.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace CronosAgency.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly CronosAgencyContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(CronosAgencyContext context)
         {
-            _logger = logger;
+            _context = context;
+            _context.Database.EnsureCreated();
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var vm = new HomeViewModel();
+            vm.Services = await _context.Services.ToListAsync();
+            vm.Members = await _context.Members.ToListAsync();
+            vm.Posts = await _context.Posts.ToListAsync();
+            return View(vm);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public async Task<IActionResult> Blog()
         {
-            return View();
+            var data = await _context.Posts.ToListAsync();
+            return View(data);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public async Task<IActionResult> GetPost(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var post = await _context.Posts.FirstOrDefaultAsync(m => m.Id == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return View(post);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> QuemSomos()
+        {
+            var data = await _context.Members.ToListAsync();
+            return View(data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Servicos()
+        {
+            var data = await _context.Services.ToListAsync();
+            return View(data);
         }
     }
 }

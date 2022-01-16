@@ -1,0 +1,27 @@
+﻿@model IEnumerable<CronosAgency.Models.Member>
+
+@{
+    ViewData["Title"] = "Serviços";
+}
+
+<h1>Quem Somos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nome
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name) + " " + @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
