@@ -15,7 +15,6 @@ namespace CronosAgency.Controllers
         public HomeController(CronosAgencyContext context)
         {
             _context = context;
-            _context.Database.EnsureCreated();
         }
 
         [HttpGet]
