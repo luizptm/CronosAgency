@@ -1,5 +1,7 @@
-﻿using CronosAgency.Data;
+﻿using AutoMapper;
+using CronosAgency.Data;
 using CronosAgency.Models;
+using CronosAgency.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +17,17 @@ namespace CronosAgency.Controllers.Admin
     public class UsersController : Controller
     {
         private readonly CronosAgencyContext _context;
+        private IMapper mapper;
 
         public UsersController(CronosAgencyContext context)
         {
             _context = context;
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<User, UserViewModel>();
+                cfg.CreateMap<UserViewModel, User>();
+            });
+            mapper = configuration.CreateMapper();
         }
 
         // GET: Users
@@ -41,8 +50,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-
-            return View(user);
+            var vm = mapper.Map<User>(user);
+            return View(vm);
         }
 
         // GET: Users/Create
@@ -64,7 +73,8 @@ namespace CronosAgency.Controllers.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            var vm = mapper.Map<User>(user);
+            return View(vm);
         }
 
         // GET: Users/Edit/5
@@ -80,7 +90,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            return View(user);
+            var vm = mapper.Map<User>(user);
+            return View(vm);
         }
 
         // PUT: Users/Edit/5
@@ -115,7 +126,8 @@ namespace CronosAgency.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            var vm = mapper.Map<User>(user);
+            return View(vm);
         }
 
         // GET: Users/Delete/5
@@ -132,8 +144,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-
-            return View(user);
+            var vm = mapper.Map<User>(user);
+            return View(vm);
         }
 
         // POST: Users/Delete/5

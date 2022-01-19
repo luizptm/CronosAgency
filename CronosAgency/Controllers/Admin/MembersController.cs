@@ -1,5 +1,7 @@
-﻿using CronosAgency.Data;
+﻿using AutoMapper;
+using CronosAgency.Data;
 using CronosAgency.Models;
+using CronosAgency.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +17,17 @@ namespace CronosAgency.Controllers.Admin
     public class MembersController : Controller
     {
         private readonly CronosAgencyContext _context;
+        private IMapper mapper;
 
         public MembersController(CronosAgencyContext context)
         {
             _context = context;
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Member, MemberViewModel>();
+                cfg.CreateMap<MemberViewModel, Member>();
+            });
+            mapper = configuration.CreateMapper();
         }
 
         // GET: Members
@@ -41,8 +50,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-
-            return View(member);
+            var vm = mapper.Map<Member>(member);
+            return View(vm);
         }
 
         // GET: Members/Create
@@ -64,7 +73,8 @@ namespace CronosAgency.Controllers.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(member);
+            var vm = mapper.Map<Member>(member);
+            return View(vm);
         }
 
         // GET: Members/Edit/5
@@ -80,7 +90,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            return View(member);
+            var vm = mapper.Map<Member>(member);
+            return View(vm);
         }
 
         // PUT: Members/Edit/5
@@ -115,7 +126,8 @@ namespace CronosAgency.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(member);
+            var vm = mapper.Map<Member>(member);
+            return View(vm);
         }
 
         // GET: Members/Delete/5
@@ -132,8 +144,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-
-            return View(member);
+            var vm = mapper.Map<Member>(member);
+            return View(vm);
         }
 
         // POST: Members/Delete/5

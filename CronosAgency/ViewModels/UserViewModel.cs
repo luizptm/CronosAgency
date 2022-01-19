@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace CronosAgency.ViewModels
 {
-    public class RegisterViewModel
+    public class UserViewModel
     {
         [Required]
         [DataType(DataType.Text)]
@@ -26,5 +27,8 @@ namespace CronosAgency.ViewModels
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime LastTimePasswordChanged { get; set; }
+
+        [HiddenInput]
+        public string ReturnUrl { get; set; }
     }
 }

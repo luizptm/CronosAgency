@@ -1,4 +1,5 @@
-﻿using CronosAgency.Models;
+﻿using AutoMapper;
+using CronosAgency.Models;
 using CronosAgency.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,7 @@ namespace CronosAgency.Controllers.Admin
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly Microsoft.AspNetCore.Identity.RoleManager<IdentityRole> roleManager;
+        private IMapper mapper;
 
         public RolesController(
             UserManager<ApplicationUser> userManager,
@@ -23,6 +25,12 @@ namespace CronosAgency.Controllers.Admin
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Role, RoleViewModel>();
+                cfg.CreateMap<RoleViewModel, Role>();
+            });
+            mapper = configuration.CreateMapper();
         }
 
         // GET: Roles
@@ -56,7 +64,8 @@ namespace CronosAgency.Controllers.Admin
                     model.Users.Add(userVM);
                 }
             }
-            return View(model);
+            var vm = mapper.Map<Role>(role);
+            return View(vm);
         }
 
         // GET: Roles/Create
@@ -70,13 +79,13 @@ namespace CronosAgency.Controllers.Admin
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RoleViewModel model)
+        public async Task<IActionResult> Create(RoleViewModel role)
         {
             if (ModelState.IsValid)
             {
                 IdentityRole identityRole = new IdentityRole
                 {
-                    Name = model.Name
+                    Name = role.Name
                 };
 
                 Microsoft.AspNetCore.Identity.IdentityResult result = await roleManager.CreateAsync(identityRole);
@@ -89,7 +98,8 @@ namespace CronosAgency.Controllers.Admin
                     ModelState.AddModelError("", error.Description);
                 }
             }
-            return View(model);
+            var vm = mapper.Map<Role>(role);
+            return View(vm);
         }
 
         // GET: Roles/Edit/5
@@ -119,7 +129,8 @@ namespace CronosAgency.Controllers.Admin
                     model.Users.Add(userVM);
                 }
             }
-            return View(model);
+            var vm = mapper.Map<Role>(role);
+            return View(vm);
         }
 
         // PUT: Roles/Edit/5
@@ -147,7 +158,8 @@ namespace CronosAgency.Controllers.Admin
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                return View(model);
+                var vm = mapper.Map<Role>(role);
+                return View(vm);
             }
         }
 
@@ -173,13 +185,13 @@ namespace CronosAgency.Controllers.Admin
                 var result = await roleManager.DeleteAsync(role);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("ListRoles");
+                    return RedirectToAction(nameof(Index));
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                return View("ListRoles");
+                return RedirectToAction(nameof(Index));
             }
         }
     }

@@ -48,7 +48,7 @@ namespace CronosAgency.Controllers
             }
 
             // user authN failed
-            ModelState.AddModelError("", "Invalid email or password");
+            ModelState.AddModelError("", "E-mail ou senha inválida");
             return View();
         }
 
@@ -69,7 +69,7 @@ namespace CronosAgency.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(UserViewModel model)
         {
             if (!ModelState.IsValid)
             {

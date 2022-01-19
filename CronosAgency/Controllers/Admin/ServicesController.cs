@@ -1,5 +1,7 @@
-﻿using CronosAgency.Data;
+﻿using AutoMapper;
+using CronosAgency.Data;
 using CronosAgency.Models;
+using CronosAgency.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +17,17 @@ namespace CronosAgency.Controllers.Admin
     public class ServicesController : Controller
     {
         private readonly CronosAgencyContext _context;
+        private IMapper mapper;
 
         public ServicesController(CronosAgencyContext context)
         {
             _context = context;
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Service, ServiceViewModel>();
+                cfg.CreateMap<ServiceViewModel, Service>();
+            });
+            mapper = configuration.CreateMapper();
         }
 
         // GET: Services
@@ -41,8 +50,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-
-            return View(service);
+            var vm = mapper.Map<Service>(service);
+            return View(vm);
         }
 
         // GET: Services/Create
@@ -64,7 +73,8 @@ namespace CronosAgency.Controllers.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            var vm = mapper.Map<Service>(service);
+            return View(vm);
         }
 
         // GET: Services/Edit/5
@@ -80,7 +90,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            return View(service);
+            var vm = mapper.Map<Service>(service);
+            return View(vm);
         }
 
         // PUT: Services/Edit/5
@@ -115,7 +126,8 @@ namespace CronosAgency.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(service);
+            var vm = mapper.Map<Service>(service);
+            return View(vm);
         }
 
         // GET: Services/Delete/5
@@ -132,8 +144,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-
-            return View(service);
+            var vm = mapper.Map<Service>(service);
+            return View(vm);
         }
 
         // POST: Services/Delete/5
