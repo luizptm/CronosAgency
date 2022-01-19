@@ -1,5 +1,5 @@
 ﻿using CronosAgency.Data;
-using CronosAgency.ViewModel;
+using CronosAgency.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

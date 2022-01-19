@@ -1,5 +1,5 @@
 ﻿using CronosAgency.Models;
-using CronosAgency.ViewModel;
+using CronosAgency.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -50,7 +50,10 @@ namespace CronosAgency.Controllers.Admin
             {
                 if (await userManager.IsInRoleAsync(user, role.Name))
                 {
-                    model.Users.Add(user.Email);
+                    var userVM = new UserViewModel();
+                    userVM.Name = user.Name;
+                    userVM.Email = user.Email;
+                    model.Users.Add(userVM);
                 }
             }
             return View(model);
@@ -110,7 +113,10 @@ namespace CronosAgency.Controllers.Admin
             {
                 if (await userManager.IsInRoleAsync(user, role.Name))
                 {
-                    model.Users.Add(user.Email);
+                    var userVM = new UserViewModel();
+                    userVM.Name = user.Name;
+                    userVM.Email = user.Email;
+                    model.Users.Add(userVM);
                 }
             }
             return View(model);
