@@ -45,8 +45,6 @@ namespace CronosAgency.Data
             modelBuilder.Entity<Role>().Property(r => r.Name).IsRequired();
             modelBuilder.Entity<Role>().Property(r => r.NormalizedName).IsRequired();
             modelBuilder.Entity<Role>().HasMany(r => r.Users);
-
-            //modelBuilder.Seed();
         }
 
         public DbSet<Member> Members { get; set; }

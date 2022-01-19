@@ -59,7 +59,7 @@ namespace CronosAgency.Data
                     Password = "admin",
                     CreateDate = new System.DateTime(),
                     LastTimePasswordChanged = new System.DateTime(),
-                    RoleId = 1
+                    RoleId = 2
                 },
                 new User
                 {

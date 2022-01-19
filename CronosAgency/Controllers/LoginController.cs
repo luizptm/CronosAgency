@@ -52,7 +52,7 @@ namespace CronosAgency.Controllers
             return View();
         }
 
-        public async Task<ActionResult> LogOut()
+        public ActionResult LogOut()
         {
             return RedirectToAction("index", "home");
         }
