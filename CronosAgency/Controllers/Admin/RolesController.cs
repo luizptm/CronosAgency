@@ -17,20 +17,15 @@ namespace CronosAgency.Controllers.Admin
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly Microsoft.AspNetCore.Identity.RoleManager<IdentityRole> roleManager;
-        private IMapper mapper;
+        private IMapper _mapper;
 
         public RolesController(
             UserManager<ApplicationUser> userManager,
-            Microsoft.AspNetCore.Identity.RoleManager<IdentityRole> roleManager)
+            Microsoft.AspNetCore.Identity.RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Role, RoleViewModel>();
-                cfg.CreateMap<RoleViewModel, Role>();
-            });
-            mapper = configuration.CreateMapper();
+            this._mapper = mapper; this._mapper = mapper;
         }
 
         // GET: Roles
@@ -64,7 +59,7 @@ namespace CronosAgency.Controllers.Admin
                     model.Users.Add(userVM);
                 }
             }
-            var vm = mapper.Map<Role>(role);
+            var vm = _mapper.Map<Role>(role);
             return View(vm);
         }
 
@@ -98,7 +93,7 @@ namespace CronosAgency.Controllers.Admin
                     ModelState.AddModelError("", error.Description);
                 }
             }
-            var vm = mapper.Map<Role>(role);
+            var vm = _mapper.Map<Role>(role);
             return View(vm);
         }
 
@@ -129,7 +124,7 @@ namespace CronosAgency.Controllers.Admin
                     model.Users.Add(userVM);
                 }
             }
-            var vm = mapper.Map<Role>(role);
+            var vm = _mapper.Map<Role>(role);
             return View(vm);
         }
 
@@ -158,7 +153,7 @@ namespace CronosAgency.Controllers.Admin
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                var vm = mapper.Map<Role>(role);
+                var vm = _mapper.Map<Role>(role);
                 return View(vm);
             }
         }

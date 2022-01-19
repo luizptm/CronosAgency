@@ -17,17 +17,12 @@ namespace CronosAgency.Controllers.Admin
     public class MembersController : Controller
     {
         private readonly CronosAgencyContext _context;
-        private IMapper mapper;
+        private IMapper _mapper;
 
-        public MembersController(CronosAgencyContext context)
+        public MembersController(CronosAgencyContext context, IMapper mapper)
         {
-            _context = context;
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Member, MemberViewModel>();
-                cfg.CreateMap<MemberViewModel, Member>();
-            });
-            mapper = configuration.CreateMapper();
+            this._context = context;
+            this._mapper = mapper;
         }
 
         // GET: Members
@@ -50,7 +45,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<Member>(member);
+            var vm = _mapper.Map<Member>(member);
             return View(vm);
         }
 
@@ -69,11 +64,13 @@ namespace CronosAgency.Controllers.Admin
         {
             if (ModelState.IsValid)
             {
+                member.Name = member.Name.ToString();
+                member.Surname = member.Surname.ToString();
                 _context.Add(member);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            var vm = mapper.Map<Member>(member);
+            var vm = _mapper.Map<Member>(member);
             return View(vm);
         }
 
@@ -90,7 +87,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<Member>(member);
+            var vm = _mapper.Map<Member>(member);
             return View(vm);
         }
 
@@ -110,6 +107,8 @@ namespace CronosAgency.Controllers.Admin
             {
                 try
                 {
+                    member.Name = member.Name.ToString();
+                    member.Surname = member.Surname.ToString();
                     _context.Update(member);
                     await _context.SaveChangesAsync();
                 }
@@ -126,7 +125,7 @@ namespace CronosAgency.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            var vm = mapper.Map<Member>(member);
+            var vm = _mapper.Map<Member>(member);
             return View(vm);
         }
 
@@ -144,7 +143,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<Member>(member);
+            var vm = _mapper.Map<Member>(member);
             return View(vm);
         }
 

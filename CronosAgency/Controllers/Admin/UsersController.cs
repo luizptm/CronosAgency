@@ -17,17 +17,12 @@ namespace CronosAgency.Controllers.Admin
     public class UsersController : Controller
     {
         private readonly CronosAgencyContext _context;
-        private IMapper mapper;
+        private IMapper _mapper;
 
-        public UsersController(CronosAgencyContext context)
+        public UsersController(CronosAgencyContext context, IMapper mapper)
         {
-            _context = context;
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<User, UserViewModel>();
-                cfg.CreateMap<UserViewModel, User>();
-            });
-            mapper = configuration.CreateMapper();
+            this._context = context;
+            this._mapper = mapper;
         }
 
         // GET: Users
@@ -50,7 +45,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<User>(user);
+            var vm = _mapper.Map<User>(user);
             return View(vm);
         }
 
@@ -73,7 +68,7 @@ namespace CronosAgency.Controllers.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            var vm = mapper.Map<User>(user);
+            var vm = _mapper.Map<User>(user);
             return View(vm);
         }
 
@@ -90,7 +85,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<User>(user);
+            var vm = _mapper.Map<User>(user);
             return View(vm);
         }
 
@@ -126,7 +121,7 @@ namespace CronosAgency.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            var vm = mapper.Map<User>(user);
+            var vm = _mapper.Map<User>(user);
             return View(vm);
         }
 
@@ -144,7 +139,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<User>(user);
+            var vm = _mapper.Map<User>(user);
             return View(vm);
         }
 

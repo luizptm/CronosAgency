@@ -17,17 +17,12 @@ namespace CronosAgency.Controllers.Admin
     public class ServicesController : Controller
     {
         private readonly CronosAgencyContext _context;
-        private IMapper mapper;
+        private IMapper _mapper;
 
-        public ServicesController(CronosAgencyContext context)
+        public ServicesController(CronosAgencyContext context, IMapper mapper)
         {
-            _context = context;
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Service, ServiceViewModel>();
-                cfg.CreateMap<ServiceViewModel, Service>();
-            });
-            mapper = configuration.CreateMapper();
+            this._context = context;
+            this._mapper = mapper;
         }
 
         // GET: Services
@@ -50,7 +45,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<Service>(service);
+            var vm = _mapper.Map<Service>(service);
             return View(vm);
         }
 
@@ -73,7 +68,7 @@ namespace CronosAgency.Controllers.Admin
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            var vm = mapper.Map<Service>(service);
+            var vm = _mapper.Map<Service>(service);
             return View(vm);
         }
 
@@ -90,7 +85,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<Service>(service);
+            var vm = _mapper.Map<Service>(service);
             return View(vm);
         }
 
@@ -126,7 +121,7 @@ namespace CronosAgency.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
-            var vm = mapper.Map<Service>(service);
+            var vm = _mapper.Map<Service>(service);
             return View(vm);
         }
 
@@ -144,7 +139,7 @@ namespace CronosAgency.Controllers.Admin
             {
                 return NotFound();
             }
-            var vm = mapper.Map<Service>(service);
+            var vm = _mapper.Map<Service>(service);
             return View(vm);
         }
 
