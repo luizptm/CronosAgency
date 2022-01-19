@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CronosAgency.ViewModels
 {
@@ -14,5 +13,8 @@ namespace CronosAgency.ViewModels
         [Required]
         [DataType(DataType.Text)]
         public string Surname { get; set; }
+
+        public override string ToString()
+        => $"{Name.Trim()} {Surname.Trim()}";
     }
 }
