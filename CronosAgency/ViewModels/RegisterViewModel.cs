@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace CronosAgency.ViewModel
+namespace CronosAgency.ViewModels
 {
     public class UserViewModel
     {

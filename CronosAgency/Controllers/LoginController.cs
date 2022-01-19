@@ -1,6 +1,6 @@
 ﻿using CronosAgency.Data;
 using CronosAgency.Models;
-using CronosAgency.ViewModel;
+using CronosAgency.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

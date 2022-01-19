@@ -1,8 +1,7 @@
-﻿using CronosAgency.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace CronosAgency.ViewModel
+namespace CronosAgency.ViewModels
 {
     public class RoleViewModel
     {
@@ -13,6 +12,6 @@ namespace CronosAgency.ViewModel
         [Display(Name = "Role")]
         public string Name { get; set; }
 
-        public virtual List<string> Users { get; set; }
+        public virtual List<UserViewModel> Users { get; set; }
     }
 }

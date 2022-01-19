@@ -1,6 +1,6 @@
 using System;
 
-namespace CronosAgency.Models
+namespace CronosAgency.ViewModels
 {
     public class ErrorViewModel
     {

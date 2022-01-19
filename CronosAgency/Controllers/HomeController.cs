@@ -1,5 +1,5 @@
 ﻿using CronosAgency.Data;
-using CronosAgency.ViewModel;
+using CronosAgency.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,6 @@ namespace CronosAgency.Controllers
         public HomeController(CronosAgencyContext context)
         {
             _context = context;
-            _context.Database.EnsureCreated();
         }
 
         [HttpGet]
